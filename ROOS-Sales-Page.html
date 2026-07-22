@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Restaurant Owner Operating System | Restaurant Freedom Academy</title>
+<meta name="description" content="A restaurant operating system is the only way to build a successful independent restaurant. Every franchise hands one to its owners before they open. Independents are expected to figure it out alone.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Lora:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --crimson:#E51636;--crimson-deep:#C1122C;--ink:#1A1A1A;
+    --ink-70:rgba(26,26,26,.70);--ink-55:rgba(26,26,26,.55);
+    --line:rgba(26,26,26,.12);--white:#FFFFFF;--wash:#F6F5F2;
+  }
+  *,*::before,*::after{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:"Figtree",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color:var(--ink);background:var(--white);font-size:18px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+  h1,h2,h3{font-family:"Figtree",-apple-system,BlinkMacSystemFont,sans-serif;font-weight:800;line-height:1.12;margin:0;letter-spacing:-.02em;text-wrap:balance;}
+  p{margin:0 0 1.1em;text-wrap:pretty;}
+  img{display:block;max-width:100%;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+  .narrow{max-width:760px;margin:0 auto;}
+
+  .topbar{border-bottom:1px solid var(--line);background:var(--white);}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:18px 24px;}
+  .wordmark{font-family:"Figtree",sans-serif;font-weight:800;font-size:19px;color:var(--ink);text-decoration:none;letter-spacing:-.01em;}
+  .wordmark span{color:var(--crimson);}
+  .topbar .tag{font-family:"Figtree";font-weight:900;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-55);}
+
+  /* Eyebrow with accent rule */
+  .eyebrow{font-family:"Figtree";font-weight:900;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--crimson);display:inline-flex;align-items:center;gap:12px;margin-bottom:18px;}
+  .eyebrow::before{content:"";width:34px;height:2px;background:var(--crimson);display:inline-block;}
+  .eyebrow.on-dark{color:#fff;}
+  .eyebrow.on-dark::before{background:#fff;}
+
+  .btn{display:inline-block;text-align:center;cursor:pointer;border:none;font-family:"Figtree";
+    font-weight:900;font-size:16px;letter-spacing:.05em;text-transform:uppercase;padding:18px 34px;
+    border-radius:100px;background:var(--crimson);color:#fff;text-decoration:none;transition:background .16s ease,transform .16s ease;}
+  .btn:hover{background:var(--crimson-deep);}
+  .btn:active{transform:translateY(1px);}
+  .btn-sub{display:block;margin-top:10px;font-size:14px;color:var(--ink-55);font-weight:700;}
+  .btn-sub.on-dark{color:rgba(255,255,255,.6);}
+
+  /* Hero */
+  .hero{padding:60px 0 74px;background:var(--white);}
+  .herogrid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:48px;align-items:center;}
+  .hero h1{font-size:52px;line-height:1.04;margin-bottom:10px;}
+  .hero h1 em{font-style:normal;color:var(--crimson);}
+  .heroground{font-size:24px;font-weight:500;line-height:1.3;color:var(--ink-55);margin:0 0 30px;}
+  .herodomino{font-size:27px;font-weight:800;line-height:1.28;color:var(--ink);margin:6px 0 24px;}
+  .herodomino em{font-style:normal;color:var(--crimson);}
+  .hero .sub{font-size:18px;color:var(--ink-70);margin-bottom:30px;}
+  .heroimg{width:100%;height:100%;min-height:440px;object-fit:cover;object-position:center;border-radius:16px;}
+
+  section.block{padding:100px 0;}
+  .block h2{font-size:36px;margin-bottom:24px;}
+  .lead{font-family:"Lora";font-style:italic;font-size:23px;line-height:1.5;color:var(--ink);}
+
+  /* Section variants for distinction */
+  .sec-soft{background:var(--wash);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .sec-dark{background:var(--ink);color:#fff;}
+  .sec-dark h2{color:#fff;}
+  .sec-dark p{color:rgba(255,255,255,.82);}
+  .sec-accent{background:var(--white);border-top:4px solid var(--crimson);}
+  /* Bold crimson band */
+  .sec-crimson{background:linear-gradient(160deg,#E51636 0%,#C1122C 100%);color:#fff;}
+  .sec-crimson h2,.sec-crimson h3{color:#fff;}
+  .sec-crimson p{color:rgba(255,255,255,.90);}
+  .sec-crimson .lead{color:#fff;}
+  .sec-crimson .eyebrow{color:#fff;}
+  .sec-crimson .eyebrow::before{background:#fff;}
+  .sec-crimson .name{color:#fff;}
+  .sec-crimson .pullquote{color:#fff;border-left-color:rgba(255,255,255,.55);}
+  .sec-crimson .btn{background:#fff;color:var(--crimson);}
+  .sec-crimson .btn:hover{background:#f1e7e7;}
+  .sec-crimson .btn-sub{color:rgba(255,255,255,.78);}
+  /* Full-bleed image band */
+  .imgband{position:relative;min-height:440px;display:flex;align-items:center;background-size:cover;background-position:center;}
+  .imgband::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,18,18,.86) 0%,rgba(18,18,18,.48) 58%,rgba(18,18,18,.22) 100%);}
+  .imgband .wrap{position:relative;z-index:1;}
+  .imgband .eyebrow{color:#fff;}
+  .imgband .eyebrow::before{background:var(--crimson);}
+  .imgband h2{color:#fff;font-size:38px;max-width:680px;margin:0;}
+  .imgband p{color:rgba(255,255,255,.92);max-width:560px;margin:16px 0 0;font-size:19px;}
+  /* Proof bar · authority early */
+  .proofbar{background:var(--ink);color:#fff;padding:54px 0;}
+  .proofstats{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+  .pstat{text-align:center;padding:0 6px;}
+  .pnum{font-family:"Figtree";font-weight:800;font-size:46px;color:#fff;line-height:1;letter-spacing:-.02em;}
+  .plabel{margin-top:12px;font-size:13.5px;color:rgba(255,255,255,.62);line-height:1.45;}
+  .proofline{text-align:center;margin:36px auto 0;max-width:680px;font-size:17px;color:#fff;font-weight:600;line-height:1.55;}
+  @media(max-width:760px){.proofstats{grid-template-columns:1fr 1fr;gap:30px 16px;} .pnum{font-size:38px;}}
+  /* Trust line at buy buttons */
+  .trustline{margin:16px 0 0;font-size:13.5px;color:var(--ink-55);font-weight:600;}
+  /* Text + photo pair */
+  .joyrow{display:grid;grid-template-columns:1fr 258px;gap:34px;align-items:start;margin:30px 0 0;}
+  .joyrow p:last-child{margin-bottom:0;}
+  .joyrow img{width:100%;border-radius:18px;box-shadow:0 12px 34px rgba(26,26,26,.14);}
+  @media(max-width:700px){.joyrow{grid-template-columns:1fr;gap:22px;} .joyrow img{max-width:340px;}}
+  /* Figure with caption */
+  .figure{margin:36px 0 0;}
+  .figure img{width:100%;border-radius:18px;box-shadow:0 14px 40px rgba(26,26,26,.14);}
+  .figure figcaption{margin-top:14px;font-size:14.5px;color:var(--ink-55);font-style:italic;line-height:1.5;}
+  /* Journey map */
+  .journey{background:var(--ink);color:#fff;padding:70px 0 74px;overflow:hidden;}
+  .journey .jhead{text-align:center;margin-bottom:6px;}
+  .journey .jhead .eyebrow{color:#fff;}
+  .journey .jhead .eyebrow::before{background:var(--crimson);}
+  .journey .jsub{font-family:"Lora";font-style:italic;font-size:20px;color:rgba(255,255,255,.85);margin:0;}
+  .journey svg{width:100%;height:auto;display:block;}
+  .anim .journey .reveal{clip-path:inset(0 100% 0 0);transition:clip-path 4600ms cubic-bezier(.33,.5,.25,1);}
+  .journey.in .reveal{clip-path:inset(0 0 0 0);}
+  .jstack{display:none;}
+  @media(max-width:860px){
+    .journey svg{display:none;}
+    .jstack{display:block;margin-top:30px;}
+    .jstep{position:relative;padding:0 0 28px 30px;border-left:2px dotted rgba(255,255,255,.3);}
+    .jstep:last-child{border-left-color:transparent;padding-bottom:0;}
+    .jstep::before{content:"";position:absolute;left:-8px;top:3px;width:14px;height:14px;border-radius:50%;background:var(--crimson);}
+    .jstep .jlabel{font-family:"Figtree";font-weight:900;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--crimson);}
+    .jstep h3{font-size:20px;color:#fff;margin:4px 0 6px;}
+    .jstep p{font-size:15px;color:rgba(255,255,255,.7);margin:2px 0 0;}
+    .anim .jstep{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease;}
+    .journey.in .jstep{opacity:1;transform:none;}
+    .journey.in .jstep:nth-child(1){transition-delay:.10s;}
+    .journey.in .jstep:nth-child(2){transition-delay:.50s;}
+    .journey.in .jstep:nth-child(3){transition-delay:.90s;}
+    .journey.in .jstep:nth-child(4){transition-delay:1.30s;}
+    .journey.in .jstep:nth-child(5){transition-delay:1.70s;}
+  }
+  /* Payback calculator */
+  .calc{margin-top:38px;}
+  .calc label{display:block;font-family:"Figtree";font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:10px;}
+  .calc-sales{display:block;font-family:"Figtree";font-weight:800;font-size:44px;color:#fff;line-height:1;letter-spacing:-.02em;margin-bottom:18px;}
+  .calc input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:100px;background:rgba(255,255,255,.22);outline:none;margin:0 0 34px;}
+  .calc input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:28px;height:28px;border-radius:50%;background:var(--crimson);border:3px solid #fff;cursor:pointer;}
+  .calc input[type=range]::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:var(--crimson);border:3px solid #fff;cursor:pointer;}
+  .calc-inputs{display:grid;grid-template-columns:1fr 1fr;gap:34px;}
+  .calc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .calc-cell{border:1px solid rgba(255,255,255,.18);border-radius:16px;padding:24px 20px;background:rgba(255,255,255,.04);}
+  .calc-cell.hot{border-color:var(--crimson);background:rgba(229,22,54,.10);}
+  .cnum{font-family:"Figtree";font-weight:800;font-size:32px;color:#fff;line-height:1;letter-spacing:-.02em;}
+  .clabel{margin-top:10px;font-size:14px;color:rgba(255,255,255,.62);line-height:1.4;}
+  .calc-grid.two{grid-template-columns:1fr 1fr;}
+  .calc-whatif{margin-top:36px;padding-top:32px;border-top:1px solid rgba(255,255,255,.20);}
+  .keepbtns{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 4px;}
+  .kb{font-family:"Figtree";font-weight:800;font-size:15px;color:#fff;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.28);border-radius:100px;padding:12px 22px;cursor:pointer;transition:background .15s ease,border-color .15s ease;}
+  .kb:hover{background:rgba(255,255,255,.14);}
+  .kb.active{background:var(--crimson);border-color:var(--crimson);}
+  .mrow .mval{font-size:20px;}
+  .mathline{margin-top:18px;border-top:1px solid rgba(255,255,255,.16);}
+  .mrow{display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.72);}
+  .mrow .mval{font-family:"Figtree";font-weight:800;font-size:22px;color:#fff;white-space:nowrap;}
+  .mrow .mval.neg{color:rgba(255,255,255,.55);}
+  .mrow.total{border-bottom:none;padding-top:20px;}
+  .mrow.total span:first-child{color:#fff;font-weight:700;font-size:19px;}
+  .mrow.total .mval{font-size:38px;letter-spacing:-.02em;}
+  @media(max-width:700px){.calc-grid.two{grid-template-columns:1fr;}.mrow.total .mval{font-size:30px;}}
+  .calc-note{margin:26px 0 0;color:#fff;font-weight:600;}
+  .calc-fine{margin:10px 0 0;font-size:14px;color:rgba(255,255,255,.55);}
+  @media(max-width:700px){.calc-grid{grid-template-columns:1fr;gap:12px;}.calc-inputs{grid-template-columns:1fr;gap:8px;}.calc-sales{font-size:34px;}.cnum{font-size:28px;}}
+  /* Scroll reveals */
+  .anim .stack .row,.anim .stack .total{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;}
+  .stack.in .row,.stack.in .total{opacity:1;transform:none;}
+  .stack.in .row:nth-child(1){transition-delay:.06s}
+  .stack.in .row:nth-child(2){transition-delay:.14s}
+  .stack.in .row:nth-child(3){transition-delay:.22s}
+  .stack.in .row:nth-child(4){transition-delay:.30s}
+  .stack.in .row:nth-child(5){transition-delay:.38s}
+  .stack.in .row:nth-child(6){transition-delay:.46s}
+  .stack.in .row:nth-child(7){transition-delay:.54s}
+  .stack.in .row:nth-child(8){transition-delay:.62s}
+  .stack.in .total{transition-delay:.80s}
+  .anim .compare .col{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease;}
+  .compare.in .col{opacity:1;transform:none;}
+  .compare.in .col:nth-child(1){transition-delay:.10s}
+  .compare.in .col:nth-child(2){transition-delay:.38s}
+  .compare.in .col:nth-child(3){transition-delay:.66s}
+  .anim .statviz .b{opacity:0;transform:scale(.8);transition:opacity .3s ease,transform .3s ease;}
+  .statviz.in .b{opacity:1;transform:none;}
+  .statviz.in .b:nth-child(1){transition-delay:.05s}
+  .statviz.in .b:nth-child(2){transition-delay:.14s}
+  .statviz.in .b:nth-child(3){transition-delay:.23s}
+  .statviz.in .b:nth-child(4){transition-delay:.32s}
+  .statviz.in .b:nth-child(5){transition-delay:.41s}
+  .statviz.in .b:nth-child(6){transition-delay:.50s}
+  .statviz.in .b:nth-child(7){transition-delay:.59s}
+  .statviz.in .b:nth-child(8){transition-delay:.68s}
+  .statviz.in .b:nth-child(9){transition-delay:.77s}
+  .statviz.in .b:nth-child(10){transition-delay:.86s}
+  @media(prefers-reduced-motion:reduce){.journey .reveal{clip-path:none;transition:none;}.jstep,.stack .row,.stack .total,.compare .col,.statviz .b{opacity:1 !important;transform:none !important;transition:none !important;}}
+  /* Phone refinements */
+  @media(max-width:620px){
+    .topbar .tag{display:none;}
+    .imgband{min-height:340px;}
+    .imgband h2{font-size:26px;}
+    .imgband p{font-size:16.5px;margin-top:12px;}
+    .journey .jsub{font-size:17px;}
+    .lettersig .sig{font-size:26px;}
+    .pricebox{padding:26px 20px;}
+    .pricebox .now{font-size:44px;}
+    .statviz{padding:24px 20px;}
+    .statviz .b{width:34px;height:34px;}
+    .statviz .statbig{font-size:22px;}
+  }
+
+  .pullquote{font-family:"Lora";font-style:italic;font-size:26px;line-height:1.4;color:var(--ink);
+    border-left:4px solid var(--crimson);padding:8px 0 8px 26px;margin:38px 0 34px;}
+  .pullquote:last-child{margin-bottom:6px;}
+
+  .statwrap{border:1px solid rgba(255,255,255,.20);border-radius:16px;padding:26px 28px;margin:30px 0;background:rgba(255,255,255,.03);}
+  .stat{font-family:"Figtree";font-weight:700;font-size:38px;color:#fff;line-height:1.2;margin:0 0 8px;}
+  .statsrc{font-size:13px;color:rgba(255,255,255,.5);margin:0;}
+  /* Stat infographic (6 in 10) */
+  .statviz{margin:32px 0;border:1px solid rgba(255,255,255,.18);border-left:4px solid var(--crimson);border-radius:18px;padding:30px 32px;background:rgba(255,255,255,.05);}
+  .statviz .blocks{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+  .statviz .b{width:42px;height:42px;border-radius:8px;border:1.5px solid rgba(255,255,255,.28);}
+  .statviz .b.on{background:var(--crimson);border-color:var(--crimson);box-shadow:0 5px 16px rgba(229,22,54,.45);}
+  .statviz .statbig{font-family:"Figtree";font-weight:700;font-size:26px;line-height:1.35;color:#fff;margin:0 0 12px;}
+  /* Preparation-trap two-list graphic */
+  .traplist{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:30px 0;}
+  .tcol{border-radius:18px;padding:26px 26px;background:#fff;}
+  .tcol.dim{border:1px solid var(--line);}
+  .tcol.hot{background:#FEF8F7;border:1px solid rgba(229,22,54,.35);border-left:4px solid var(--crimson);box-shadow:0 10px 30px rgba(229,22,54,.08);}
+  .tlabel{font-family:"Figtree";font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;color:var(--ink-55);}
+  .tcol.hot .tlabel{color:var(--crimson);}
+  .traplist ul{list-style:none;margin:0 0 14px;padding:0;}
+  .traplist li{position:relative;padding:0 0 10px 18px;color:var(--ink-70);line-height:1.45;}
+  .traplist li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:rgba(26,26,26,.3);}
+  .tcol.hot li::before{background:var(--crimson);}
+  .traplist .tnote{font-size:14px;font-style:italic;color:var(--ink-55);margin:0;}
+  /* Data callout */
+  .datanote{margin:34px 0 0;background:#fff;border:1px solid var(--line);border-left:4px solid var(--crimson);border-radius:16px;padding:24px 28px;}
+  .datanote p{margin:0 0 8px;color:var(--ink);}
+  .datanote .src{font-size:12.5px;color:var(--ink-55);}
+  @media(max-width:640px){.traplist{grid-template-columns:1fr;}}
+  /* Founding-deal panel */
+  .deal{margin:30px 0 6px;border:1px solid var(--line);border-left:4px solid var(--crimson);border-radius:18px;background:var(--wash);padding:26px 28px;}
+  .deal-label{font-family:"Figtree";font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--crimson);margin-bottom:10px;}
+  .deal p{margin:0;color:var(--ink);}
+
+  .answer .name{font-weight:900;color:var(--crimson);}
+  /* Answer lead: plain sans so the pullquote is the only italic voice in the section */
+  .answer .lead{font-family:"Figtree",-apple-system,sans-serif;font-style:normal;font-size:20.5px;line-height:1.6;color:var(--ink);}
+  @media(max-width:820px){.answer .lead{font-size:19px;}}
+  .ctarow{margin-top:46px;}
+
+  /* Course arc */
+  .arc-intro{font-size:20px;color:var(--ink-70);max-width:720px;margin:0 0 40px;}
+  .course{display:grid;grid-template-columns:auto 1fr;gap:26px;padding:34px 0;border-top:1px solid var(--line);}
+  .course:first-of-type{border-top:none;padding-top:6px;}
+  .course .num{font-family:"Figtree";font-weight:700;font-size:46px;color:var(--crimson);line-height:1;}
+  .course .tag{font-family:"Figtree";font-weight:900;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-55);margin-bottom:6px;}
+  .course h3{font-size:25px;margin-bottom:12px;}
+  .course p{margin:0;color:var(--ink-70);}
+  .course .skip{margin-top:12px;font-weight:700;color:var(--ink);}
+  .journeymap{margin:46px 0 0;padding:44px 24px;border:2px dashed rgba(26,26,26,.22);border-radius:16px;text-align:center;color:var(--ink-55);font-weight:700;}
+  /* Sidecars */
+  .sidecar{padding:26px 0;border-top:1px solid var(--line);}
+  .sidecar:first-of-type{border-top:none;}
+  .sidecar .head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+  .sidecar h3{font-size:21px;margin:0;}
+  .sidecar .val{font-family:"Figtree";font-weight:900;font-size:12px;color:var(--crimson);letter-spacing:.06em;text-transform:uppercase;}
+  .sidecar p{margin:8px 0 0;color:var(--ink-70);}
+  /* Sidecar cards */
+  .sidegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:46px;}
+  .sidecard{background:#fff;border:1px solid var(--line);border-radius:18px;padding:32px 28px;}
+  .sidecard .chip{display:inline-block;font-family:"Figtree";font-weight:900;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--crimson);border:1px solid rgba(229,22,54,.30);border-radius:20px;padding:4px 11px;margin-bottom:18px;}
+  .sidecard h3{font-size:19px;margin-bottom:10px;}
+  .sidecard p{margin:0;color:var(--ink-70);font-size:15.5px;line-height:1.5;}
+  @media(max-width:820px){.sidegrid{grid-template-columns:1fr;}}
+  /* Letter from Jason */
+  .lettergrid{display:grid;grid-template-columns:330px 1fr;gap:48px;align-items:center;}
+  .letterimg{width:100%;border-radius:18px;box-shadow:0 14px 40px rgba(26,26,26,.14);}
+  .lettersig{margin-top:28px;}
+  .lettersig .sig{font-family:"Lora";font-style:italic;font-size:30px;color:var(--ink);line-height:1;}
+  .lettersig .name{font-weight:700;margin-top:10px;}
+  .lettersig .title{color:var(--ink-55);font-size:15px;}
+  @media(max-width:820px){.lettergrid{grid-template-columns:1fr;gap:28px;}}
+  /* Value stack */
+  .stack{margin:36px 0 0;border-top:1px solid var(--line);}
+  .stack .row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);}
+  .stack .row .name{font-weight:700;}
+  .stack .row .val{color:var(--ink-55);font-weight:700;white-space:nowrap;}
+  .stack .total{display:flex;justify-content:space-between;align-items:baseline;padding:18px 2px 0;font-family:"Figtree";font-weight:700;font-size:22px;}
+  .stack .total .val{color:var(--crimson);}
+  /* Price box */
+  .btn-block{display:block;width:100%;}
+  .pricebox{background:var(--white);border:2px solid var(--crimson);border-radius:18px;padding:34px;text-align:center;max-width:520px;margin:14px auto 0;}
+  .pricebox .reg{color:var(--ink-55);text-decoration:line-through;font-weight:700;font-size:18px;}
+  .pricebox .now{font-family:"Figtree";font-weight:700;font-size:54px;color:var(--crimson);line-height:1;margin:6px 0 4px;}
+  .pricebox .terms{color:var(--ink-55);font-weight:700;font-size:15px;margin-bottom:20px;}
+  .pricebox .anchor{font-family:"Lora";font-style:italic;font-size:19px;color:var(--ink);margin:0 0 24px;}
+  .senja-slot{margin-top:28px;padding:40px 24px;border:2px dashed rgba(26,26,26,.2);border-radius:16px;text-align:center;color:var(--ink-55);font-weight:700;}
+  /* FAQ */
+  .faq{margin-top:30px;}
+  .faq .q{border-top:1px solid var(--line);padding:22px 0;}
+  .faq .q:last-child{border-bottom:1px solid var(--line);}
+  .faq .q h3{font-size:19px;margin-bottom:8px;}
+  .faq .q p{margin:0;color:var(--ink-70);}
+  footer{border-top:1px solid var(--line);padding:30px 0;font-size:14px;}
+  footer a{color:var(--ink-55);text-decoration:none;}
+  footer a:hover{color:var(--crimson);}
+  /* Comparison */
+  .compare{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:40px;}
+  .compare .col{border:1px solid var(--line);border-radius:16px;padding:28px 22px;background:var(--white);}
+  .compare .col.best{border:2px solid var(--crimson);position:relative;box-shadow:0 10px 30px rgba(229,22,54,.10);}
+  .compare .col .badge{position:absolute;top:-13px;left:22px;background:var(--crimson);color:#fff;font-family:"Figtree";font-weight:900;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:20px;}
+  .compare h3{font-size:20px;margin-bottom:18px;}
+  .compare .marks{list-style:none;margin:0 0 18px;padding:0;}
+  .compare .marks li{position:relative;padding:0 0 12px 30px;font-size:15px;color:var(--ink-70);line-height:1.45;}
+  .compare .marks li::before{position:absolute;left:0;top:-1px;font-weight:900;font-size:16px;}
+  .compare .marks li.x::before{content:"\2715";color:var(--crimson);}
+  .compare .marks li.check::before{content:"\2713";color:#1E874B;}
+  .compare .tagline{font-size:14px;font-style:italic;color:var(--ink-55);margin:0;}
+  @media(max-width:820px){.compare{grid-template-columns:1fr;}}
+  /* Fit card · who it's for */
+  .fitcard{margin-top:36px;border:1px solid var(--line);border-radius:18px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;background:#fff;box-shadow:0 10px 30px rgba(26,26,26,.05);}
+  .fitcard .side{padding:34px 32px;}
+  .fitcard .side.no{border-left:1px solid var(--line);}
+  .fitcard h3{font-family:"Figtree",sans-serif;font-weight:700;font-size:19px;margin-bottom:18px;letter-spacing:-.01em;}
+  .fitcard .yes h3{color:#1B7A44;}
+  .fitcard .no h3{color:var(--crimson);}
+  .fitcard ul{list-style:none;margin:0;padding:0;}
+  .fitcard li{position:relative;padding:0 0 13px 28px;color:var(--ink-70);line-height:1.5;}
+  .fitcard li:last-child{padding-bottom:0;}
+  .fitcard li::before{position:absolute;left:0;top:0;font-weight:900;font-size:15px;}
+  .fitcard .yes li::before{content:"\2713";color:#1B7A44;}
+  .fitcard .no li::before{content:"\2715";color:var(--crimson);}
+  @media(max-width:640px){.fitcard{grid-template-columns:1fr;} .fitcard .side.no{border-left:none;border-top:1px solid var(--line);}}
+  /* About · bio + portrait */
+  .aboutgrid{display:grid;grid-template-columns:300px 1fr;gap:44px;align-items:start;}
+  .aboutimg{width:100%;border-radius:18px;box-shadow:0 12px 34px rgba(26,26,26,.12);}
+  @media(max-width:820px){.aboutgrid{grid-template-columns:1fr;gap:24px;} .aboutimg{max-width:300px;}}
+
+  @media(max-width:820px){
+    .herogrid{grid-template-columns:1fr;gap:26px;}
+    .hero h1{font-size:36px;}.hero .sub{font-size:17px;}
+    .heroground{font-size:20px;}.herodomino{font-size:22px;}
+    .heroimg{min-height:280px;}
+    .block h2{font-size:27px;}.lead{font-size:20px;}.pullquote{font-size:21px;}
+    .hero{padding:44px 0 52px;}section.block{padding:56px 0;}
+    .stat{font-size:30px;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="wrap">
+      <a class="wordmark" href="#">Restaurant Freedom <span>Academy</span></a>
+    </div>
+  </div>
+
+  <!-- 1. ABOVE THE FOLD (domino-belief headline) + 2. CTA -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="herogrid">
+        <div>
+          <h1>You're opening a restaurant!</h1>
+          <p class="heroground">The real question is what to do first.</p>
+          <p class="herodomino">A restaurant operating system is the <em>only way</em> to build a successful independent restaurant.</p>
+          <p class="sub">Every franchise hands an operating system to its owners before they open. Independents are the only people in this business expected to figure it out alone. This is that system, built for you.</p>
+          <a href="#enroll" class="btn">Become a Founding Member</a>
+          <span class="btn-sub">Founding price $749 · regular $1,497</span>
+        </div>
+        <img class="heroimg" src="img-sidewalk-team.jpg" alt="Jason with his Sidewalk Coffee & Bagel team">
+      </div>
+    </div>
+  </section>
+
+  <!-- Proof bar · authority up front -->
+  <section class="proofbar">
+    <div class="wrap">
+      <div class="proofstats">
+        <div class="pstat"><div class="pnum">25</div><div class="plabel">Years in restaurant leadership</div></div>
+        <div class="pstat"><div class="pnum">7</div><div class="plabel">Turnarounds, every one back to profit</div></div>
+        <div class="pstat"><div class="pnum">$11M</div><div class="plabel">Single-store sales, from the lowest-performing in the country</div></div>
+        <div class="pstat"><div class="pnum">6&times;</div><div class="plabel">Symbol of Success, Chick-fil-A's highest honor</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. THE PROBLEM · The Preparation Trap -->
+  <section class="block sec-soft">
+    <div class="wrap narrow">
+      <div class="eyebrow">The Preparation Trap</div>
+      <h2>Nobody ever tells you which decisions are the expensive ones.</h2>
+      <p>You will prepare. Every owner does. You'll walk spaces, price the build-out, taste your way through the menu, argue about the name. All of it has to happen, and all of it feels like progress, because it is progress.</p>
+      <p>The trap is that the decisions that decide whether you make it look exactly like the ones that don't. Same weight on the list, same urgency, same spot on the calendar. With nobody who has done this before telling you which is which, you work down the list in the order that feels natural. The order that feels natural is the wrong one.</p>
+      <div class="traplist">
+        <div class="tcol dim">
+          <div class="tlabel">Where your time will go</div>
+          <ul>
+            <li>Scouting spaces and picturing the dining room full</li>
+            <li>Building the menu around the food you love to cook</li>
+            <li>The name, the logo, the look of the room</li>
+            <li>Pricing the build-out down to the last fixture</li>
+          </ul>
+          <p class="tnote">All of it matters. All of it has to happen. None of it decides whether you make it.</p>
+        </div>
+        <div class="tcol hot">
+          <div class="tlabel">What actually decides it</div>
+          <ul>
+            <li>How many months of rent and payroll you can cover after the doors open</li>
+            <li>Who runs the shift when you're sick, and what they're allowed to decide without you</li>
+            <li>What the traffic really is on that corner, at the hour you'd be busiest</li>
+            <li>What food and labor actually cost at the volume you'll do, not the one you're hoping for</li>
+          </ul>
+          <p class="tnote">The hard part. The part that gets skipped.</p>
+        </div>
+      </div>
+      <div class="pullquote">You won't find out which column you spent your year in until around month three, when the opening crowd thins out and your best person gives notice.</div>
+    </div>
+  </section>
+
+  <!-- 4. THE STAKES -->
+  <section class="block sec-dark">
+    <div class="wrap narrow">
+      <div class="eyebrow on-dark">What It Costs You</div>
+      <h2>Six in ten are gone in three years. Talent is not the reason.</h2>
+      <div class="statviz" data-anim>
+        <div class="blocks">
+          <span class="b on"></span><span class="b on"></span><span class="b on"></span><span class="b on"></span><span class="b on"></span><span class="b on"></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span>
+        </div>
+        <p class="statbig">About 6 in 10 independent restaurants close within three years.</p>
+        <p class="statsrc">Source: Cornell University restaurant-closure research. [verify before publish]</p>
+      </div>
+      <p>That number isn't there to scare you. It's there because the owners on the wrong side of it were not less capable than you. They were less prepared, in a specific way, and they could not tell the difference until it was too late to fix.</p>
+      <p>The second cost is the one nobody warns you about, and it isn't the hours. You already know you can work hard. You've done it for years. It's the mental load. A restaurant comes at you from every direction at once, your team, your guests, your vendors, every person and everything they carry in the door with them. That weight lands on your mind and it stays there.</p>
+      <p>Here is what it actually takes from you. You're getting into this because you like taking care of people. Feeding them, hosting them, building a team worth working for. When the load gets heavy enough, that part goes first. You end up standing in the middle of your own restaurant, no longer enjoying the one thing that made you want it. I have watched that happen to good owners, and it never happens all at once.</p>
+    </div>
+  </section>
+
+  <!-- 4b. VEHICLE PROOF · The franchise gap -->
+  <section class="block">
+    <div class="wrap narrow">
+      <div class="eyebrow">The Training Gap</div>
+      <h2>Chick-fil-A made me train for months before they would hand me a restaurant.</h2>
+      <p>Every major franchise does some version of that. Months of training before you are allowed to open. Support that keeps coming after. A network of other owners you can call. A system for training your team that shows up already built.</p>
+      <p>Think about what that actually means. A franchisor already has your money and every reason in the world to get you open and selling. They still make you finish the training first. They have watched thousands of owners open, and they know exactly what happens to the ones who skip it.</p>
+      <p>Now look at what an independent owner opens with. Same guests, same payroll, same rent, same margins, same market. No training. No support line. No room full of owners. No system for the team. Just the hope of figuring it out faster than the money runs out.</p>
+      <div class="pullquote">That is not a talent gap. It is a training gap. And it is the one thing about this business nobody is coming to close for you.</div>
+      <p>Some owners do close it without help, and a few of them make it. They just pay for it in mistakes instead of money, and mistakes in this business are not cheap. You are going to pay for this training either way. The only question is which way, and how much.</p>
+
+      <div class="sidegrid">
+        <div class="sidecard">
+          <span class="chip">Gap One</span>
+          <h3>Training that doesn't stop at the opening</h3>
+          <p>A franchisee trains for months before day one, and the support keeps coming for as long as they own the place. An independent gets a lease and a set of keys.</p>
+        </div>
+        <div class="sidecard">
+          <span class="chip">Gap Two</span>
+          <h3>A room full of other owners</h3>
+          <p>People who understand this work, on the days you need that. And people a few years ahead of you who have already solved the thing that is about to land on your desk.</p>
+        </div>
+        <div class="sidecard">
+          <span class="chip">Gap Three</span>
+          <h3>A real way to train your team</h3>
+          <p>Franchises hand over a training process, so "trained" means the same thing in every store. Independents mostly do it by shadowing, and hope it sticks.</p>
+        </div>
+      </div>
+
+      <p style="margin-top:38px;">I had all three at Chick-fil-A. Months of training before they let me run anything, about 2,200 other operators I could pick up the phone and call, and a real process for training my team.</p>
+      <p>The community was the piece I underestimated going in. Part of it is what you'd expect. This is a hard business and almost nobody in your life understands what you're carrying, so there were plenty of days I called somebody and said I'm struggling, how do you handle this. That mattered.</p>
+      <p>But it was also a business tool, and that's the part people don't see coming. When I was doing a million in sales, I studied the operators doing three. What problems they were hitting. How they solved them. I banked the answers before I needed them, and a year or two later that exact problem would land in my restaurant and I already knew what to do. No trial and error, no expensive month spent figuring it out. Every one of those stores had a different footprint and different limits, so I was never copying anybody. I was borrowing how they thought.</p>
+      <p>Then I opened my own place and had none of it. I had spent my career inside the system that trains franchise owners, and Chick-fil-A paid me to coach the new ones. For an independent restaurant owner, none of that exists.</p>
+      <p>So I built it. This time for the owners nobody hands anything to.</p>
+    </div>
+  </section>
+
+  <!-- 5. THE ANSWER · Introduce the vehicle (ROOS) -->
+  <section class="block sec-soft answer">
+    <div class="wrap narrow">
+      <div class="eyebrow">The Answer</div>
+      <h2>The hard work is yours. The system is what's missing.</h2>
+      <p class="lead">You already know how to outwork anyone. Add the right system to that hard work and it finally adds up, instead of running you into the ground, so you reach the restaurant you actually want faster than you ever would on your own.</p>
+      <div class="pullquote">Hustle on its own is a lightning strike. All that power, and a second later the room is still dark. Send the same energy through a system and it becomes steady light, the kind you can build a life around.</div>
+      <p>A restaurant operating system is a set of systems, installed in sequence, that decide the life you'll have before you ever unlock the door. Design the life you want first. Build a real plan for opening. Then install the systems that put you in control of the place instead of at the mercy of it. In that order.</p>
+      <div class="joyrow">
+        <div>
+          <p>That is what keeps the mental load manageable. You'll always carry part of it, every owner does, but systems and leaders carry the rest, so it never becomes the weight that breaks you. It's what the <span class="name">Restaurant Owner Operating System</span> teaches you to build, from where you are today to a restaurant that runs while you do the work only you can do.</p>
+          <p>And this is the part hustle alone never gives back: when the load isn't crushing you, the work is fun again. You get to enjoy the restaurant you built, and the people you built it with. That is the whole reason you wanted&nbsp;one.</p>
+        </div>
+        <img src="img-fun.jpg" alt="Jason and his team celebrating together in the kitchen">
+      </div>
+      <div class="ctarow">
+        <a href="#enroll" class="btn">Become a Founding Member</a>
+        <span class="btn-sub">Founding price $749 · regular $1,497</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Journey map -->
+  <section class="journey">
+    <div class="wrap">
+      <div class="jhead">
+        <div class="eyebrow">The Restaurant Owner Operating System</div>
+        <p class="jsub">The journey from a dream to a restaurant that runs right.</p>
+      </div>
+      <svg viewBox="0 0 1200 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The journey: you today, then Design Your Life, The Blueprint, and JumpStart, ending in a restaurant that runs right at Day 90 and beyond.">
+        <g class="reveal">
+          <path d="M60,448 C160,440 260,415 355,372 C450,330 520,328 600,300 C690,270 760,252 845,228 C930,204 1010,180 1140,138" fill="none" stroke="#E51636" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 17"/>
+          <path d="M60,448 C160,440 260,415 355,372 C450,330 520,328 600,300 C690,270 760,252 845,228 C930,204 1010,180 1140,138" fill="none" stroke="#EFE7DF" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 17" stroke-dashoffset="8.5"/>
+
+          <g stroke="#fff" fill="none" stroke-width="3" stroke-linecap="round">
+            <circle cx="110" cy="386" r="10"/>
+            <path d="M110,396 L110,422 M110,404 L95,414 M110,404 L125,414 M110,422 L97,442 M110,422 L123,442"/>
+          </g>
+          <text x="110" y="474" text-anchor="middle" fill="rgba(255,255,255,.6)" font-family="Figtree" font-size="13" font-weight="800" letter-spacing="2">YOU, TODAY</text>
+
+          <text x="355" y="254" text-anchor="middle" fill="#E51636" font-family="Figtree" font-size="12.5" font-weight="900" letter-spacing="2.4">COURSE ONE</text>
+          <text x="355" y="288" text-anchor="middle" fill="#fff" font-family="Figtree" font-size="27" font-weight="800">Design Your Life</text>
+          <g stroke="#fff" fill="none" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+            <path d="M325,342 L355,316 L385,342"/>
+            <path d="M333,342 L333,366 L377,366 L377,342"/>
+          </g>
+          <path d="M355,346 c-5-6-14-2-14,5 0,6 8,10 14,14 6-4 14-8 14-14 0-7-9-11-14-5z" fill="#E51636"/>
+          <text x="402" y="414" text-anchor="middle" fill="rgba(255,255,255,.66)" font-family="Figtree" font-size="14.5">Decide what this restaurant</text>
+          <text x="402" y="434" text-anchor="middle" fill="rgba(255,255,255,.66)" font-family="Figtree" font-size="14.5">must give back to you.</text>
+
+          <text x="600" y="182" text-anchor="middle" fill="#E51636" font-family="Figtree" font-size="12.5" font-weight="900" letter-spacing="2.4">COURSE TWO</text>
+          <text x="600" y="216" text-anchor="middle" fill="#fff" font-family="Figtree" font-size="27" font-weight="800">The Blueprint</text>
+          <g stroke="#fff" fill="none" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+            <rect x="572" y="244" width="56" height="42"/>
+            <path d="M572,258 L628,258 M590,258 L590,286"/>
+            <path d="M580,286 L574,300 M620,286 L626,300"/>
+          </g>
+          <path d="M610,232 h20 v14 h-20z" fill="#E51636"/>
+          <text x="600" y="342" text-anchor="middle" fill="rgba(255,255,255,.66)" font-family="Figtree" font-size="14.5">Every decision between the</text>
+          <text x="600" y="362" text-anchor="middle" fill="rgba(255,255,255,.66)" font-family="Figtree" font-size="14.5">dream and opening day.</text>
+
+          <text x="845" y="110" text-anchor="middle" fill="#E51636" font-family="Figtree" font-size="12.5" font-weight="900" letter-spacing="2.4">COURSE THREE</text>
+          <text x="845" y="144" text-anchor="middle" fill="#fff" font-family="Figtree" font-size="27" font-weight="800">JumpStart</text>
+          <path d="M812,170 h66 l-7,16 h-52z" fill="#E51636"/>
+          <g stroke="#fff" fill="none" stroke-width="3" stroke-linejoin="round">
+            <path d="M818,186 L818,216 L872,216 L872,186"/>
+            <rect x="837" y="198" width="16" height="18"/>
+          </g>
+          <text x="845" y="270" text-anchor="middle" fill="rgba(255,255,255,.66)" font-family="Figtree" font-size="14.5">Culture, systems, and a leader</text>
+          <text x="845" y="290" text-anchor="middle" fill="rgba(255,255,255,.66)" font-family="Figtree" font-size="14.5">who can run the floor.</text>
+
+          <text x="1080" y="36" text-anchor="middle" fill="#E51636" font-family="Figtree" font-size="12.5" font-weight="900" letter-spacing="2.4">THE PAYOFF</text>
+          <text x="1080" y="70" text-anchor="middle" fill="#fff" font-family="Figtree" font-size="27" font-weight="800">It Runs Right</text>
+          <g stroke="#fff" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1080,98 L1080,150"/>
+            <path d="M1048,152 q32,-13 64,0"/>
+          </g>
+          <path d="M1080,98 L1114,109 L1080,120 Z" fill="#E51636"/>
+          <text x="1080" y="196" text-anchor="middle" fill="rgba(255,255,255,.6)" font-family="Figtree" font-size="13" font-weight="800" letter-spacing="2">DAY 90 AND BEYOND</text>
+        </g>
+      </svg>
+
+      <div class="jstack">
+        <div class="jstep"><div class="jlabel">You, today</div><p>Right where you're standing.</p></div>
+        <div class="jstep"><div class="jlabel">Course One</div><h3>Design Your Life</h3><p>Decide what this restaurant must give back to you.</p></div>
+        <div class="jstep"><div class="jlabel">Course Two</div><h3>The Blueprint</h3><p>Every decision between the dream and opening day.</p></div>
+        <div class="jstep"><div class="jlabel">Course Three</div><h3>JumpStart</h3><p>Culture, systems, and a leader who can run the floor.</p></div>
+        <div class="jstep"><div class="jlabel">The Payoff</div><h3>It Runs Right</h3><p>Day 90 and beyond.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. COURSE CONTENT · The three-course arc -->
+  <section class="block">
+    <div class="wrap narrow">
+      <div class="eyebrow">How It Works</div>
+      <h2>The training a franchise would make you finish before handing you the keys.</h2>
+      <p class="arc-intro">Here's what's inside each one, and what it costs you to skip it.</p>
+
+      <div class="course">
+        <div class="num">1</div>
+        <div>
+          <div class="tag">Start Here</div>
+          <h3>Design Your Life</h3>
+          <p>Before you spend a dollar, you decide what you want this restaurant to give back to you. Not just money, the life on the other side. What a normal Tuesday looks like a year in. How many nights you're home for dinner. The lines you won't cross, even when the business asks you to.</p>
+          <p class="skip">Skip it, and the restaurant decides for you. It decides in favor of long hours and no life.</p>
+        </div>
+      </div>
+
+      <div class="course">
+        <div class="num">2</div>
+        <div>
+          <div class="tag">Pre-Opening</div>
+          <h3>The Blueprint</h3>
+          <p>The plan between the day you decide and the day you open. What opening actually costs, not what you hope it costs. Where you'll open, and why there and not somewhere else. Who you hire first. What order everything has to happen in. What Day 1 will feel like before you ever walk into it.</p>
+          <p class="skip">Get these decisions wrong and they cost you years.</p>
+        </div>
+      </div>
+
+      <div class="course">
+        <div class="num">3</div>
+        <div>
+          <div class="tag">The First 90 Days</div>
+          <h3>JumpStart 90-Day Challenge</h3>
+          <p>The day the doors open, JumpStart begins. Twelve weeks, three phases. Stabilize: set the culture and hold the standard from the first shift. Systemize: install the roles, the steps, the ownership. Transfer: move some of the leading onto a leader who can carry it. Day 90 isn't the finish. It's the beginning of freedom, a working culture, a real system, and a leader on the floor who can hold the line when you're not there.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 6b. The three sidecars -->
+  <section class="block sec-soft">
+    <div class="wrap">
+      <div class="eyebrow">Also Inside</div>
+      <h2>Your team, trained the way a franchise would train them.</h2>
+      <p class="arc-intro">Once you're open, these run alongside JumpStart. You reach for each one when the work calls for it.</p>
+
+      <div class="sidegrid">
+        <div class="sidecard">
+          <span class="chip">Included</span>
+          <h3>Foundations of Leadership</h3>
+          <p>How you build leaders out of the people already in your restaurant, one at a time. This is what makes the Transfer phase real.</p>
+        </div>
+        <div class="sidecard">
+          <span class="chip">Included</span>
+          <h3>Position Certification System</h3>
+          <p>How you train and certify every role, line cook, server, bartender, prep cook, barista, so "trained" stops being a guess and starts being a standard.</p>
+        </div>
+        <div class="sidecard">
+          <span class="chip">Included</span>
+          <h3>Owner's Decision Toolkit</h3>
+          <p>The tools that let your leaders make the small daily calls, when to send someone on break, how to prioritize after a rush, without every one of them landing on you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Image band · proof -->
+  <section class="imgband" style="background-image:url('img-team.jpg');">
+    <div class="wrap">
+      <div class="eyebrow">What It Looks Like</div>
+      <h2>A team that holds the standard when you're not on the floor.</h2>
+      <p>That isn't luck or one great hire. It's what the system builds, on purpose, one leader at a time.</p>
+    </div>
+  </section>
+
+  <!-- QUALIFIER · Who it's for -->
+  <section class="block">
+    <div class="wrap">
+      <div class="eyebrow">Is This You?</div>
+      <h2>Who this is for, and who it isn't.</h2>
+      <div class="fitcard">
+        <div class="side yes">
+          <h3>This is for you if</h3>
+          <ul>
+            <li>You're opening a restaurant, and you want it to give you a life instead of taking one.</li>
+            <li>You're ready to put a real system behind your hard work, not just work even harder.</li>
+            <li>You want to be the owner who leads the team, not the one stuck on the line every night.</li>
+            <li>You'd rather do the hard work before you open than pay double for it after.</li>
+            <li>You want the roadmap so you get there faster, not by skipping steps, but by not having to guess the order.</li>
+          </ul>
+        </div>
+        <div class="side no">
+          <h3>This isn't for you if</h3>
+          <ul>
+            <li>You're after a shortcut, or a restaurant that magically runs itself with no work from you.</li>
+            <li>You believe a great concept and long hours will be enough on their own.</li>
+            <li>You'd rather stay the person doing everything than build people who can carry it.</li>
+            <li>You're not really going to open. This is for owners who are actually doing it.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. ABOUT · Who's teaching you -->
+  <section class="block sec-soft">
+    <div class="wrap">
+      <div class="aboutgrid">
+        <img class="aboutimg" src="img-jason-portrait.png" alt="Jason Purvis, founder of Restaurant Freedom Academy">
+        <div>
+          <div class="eyebrow">Who's Teaching You</div>
+          <h2>I spent 25 years inside the best training system in this business. Then I rebuilt it for independents.</h2>
+          <p>I'm Jason. Before I owned my own place, Chick-fil-A sent me into their hardest restaurants, the broken ones, the ones nobody wanted, usually on a tight clock. The first one nearly took me out. I walked in with a marketing plan and an operations plan, and within days my whole team was gone. No plan on paper was going to save me. I had to build a way to run a restaurant that held up when everything was going wrong. That became the system.</p>
+          <p>Then I did it again. And again. Seven turnarounds, every one back to profit. Then I became a franchise owner myself and ran my own Chick-fil-A for thirteen years. It was the lowest-performing store in the country when I took it. I made it profitable in two years and grew it to nearly $11 million in sales. Along the way I earned Chick-fil-A's highest honor, the Symbol of Success, six times, a record number and a record pace. Chick-fil-A also chose me to coach their new franchise owners, an honor they hand to very few. Today my wife Azadeh and I own Sidewalk Coffee and Bagel, an independent we built with the system in place before we ever opened the doors.</p>
+          <p>Every one of those came down to the same thing. Not hustle, not luck, not passion. Building people and building systems, in the right order.</p>
+          <p>I built Restaurant Freedom Academy because I'm tired of watching good people lose their savings, and their sanity, to problems that could be solved a year before they opened. That's the whole reason this exists.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. VALUE · Everything you get -->
+  <section class="block">
+    <div class="wrap narrow">
+      <div class="eyebrow">Everything You Get</div>
+      <h2>Everything a franchise hands its owners, and none of the fees.</h2>
+      <p class="arc-intro">Every course, every tool, the coaching, and the community. Here's what's inside, and what each piece is worth on its own.</p>
+      <div class="stack" data-anim>
+        <div class="row"><span class="name">Design Your Life <span style="font-weight:400;color:var(--ink-55)">· the course</span></span><span class="val">$497</span></div>
+        <div class="row"><span class="name">The Blueprint <span style="font-weight:400;color:var(--ink-55)">· the course</span></span><span class="val">$1,497</span></div>
+        <div class="row"><span class="name">JumpStart 90-Day Challenge</span><span class="val">$1,997</span></div>
+        <div class="row"><span class="name">Foundations of Leadership</span><span class="val">$997</span></div>
+        <div class="row"><span class="name">Position Certification System</span><span class="val">$597</span></div>
+        <div class="row"><span class="name">Owner's Decision Toolkit</span><span class="val">$197</span></div>
+        <div class="row"><span class="name">Bi-weekly group coaching with me <span style="font-weight:400;color:var(--ink-55)">· 90-minute calls</span></span><span class="val">$7,200</span></div>
+        <div class="row"><span class="name">The RFA owner community <span style="font-weight:400;color:var(--ink-55)">&middot; being built with the founding group</span></span><span class="val">$348</span></div>
+        <div class="total"><span>Total value</span><span class="val" data-countup="13330">$13,330</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBJECTION · Your three choices -->
+  <section class="block sec-soft">
+    <div class="wrap narrow">
+      <div class="eyebrow">Your Three Choices</div>
+      <h2>Three roads sit in front of every new owner. One of them is built to get you there.</h2>
+      <div class="compare" data-anim>
+        <div class="col">
+          <h3>Go it alone</h3>
+          <ul class="marks">
+            <li class="x">You stitch it together from a hundred blogs and videos that all contradict each other.</li>
+            <li class="x">You learn the right order the hard way, one expensive mistake at a time.</li>
+            <li class="x">By the time you know what you should have done, the money and the years are already gone.</li>
+          </ul>
+          <p class="tagline">The road most owners take. It is also the most expensive one.</p>
+        </div>
+        <div class="col">
+          <h3>Hire a consultant</h3>
+          <ul class="marks">
+            <li class="x">Thousands of dollars, and you still can't tell good advice from bad, because you don't have the framework to judge it.</li>
+            <li class="x">They build it around themselves. The day they leave, it starts coming apart.</li>
+            <li class="x">You rent the expertise. You never own it.</li>
+          </ul>
+          <p class="tagline">Expensive, and you end up just as dependent as when you started.</p>
+        </div>
+        <div class="col best">
+          <div class="badge">The Right Order</div>
+          <h3>Build it with ROOS</h3>
+          <ul class="marks">
+            <li class="check">You follow the exact order that's already worked, so you sidestep the mistakes that sink most owners.</li>
+            <li class="check">You don't just get a system. You learn to be the owner who runs it, the kind of leader people want to work for.</li>
+            <li class="check">You always know the next right move, because the path is laid out step by step instead of left to guesswork.</li>
+            <li class="check">A coach who's built it, and a room of owners building it right alongside you.</li>
+            <li class="check">You own it for life, for this restaurant and every one you open after.</li>
+          </ul>
+          <p class="tagline">The fastest way there, and the only one you get to keep.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Payback · run it on your own numbers -->
+  <section class="block sec-dark payback">
+    <div class="wrap narrow">
+      <div class="eyebrow on-dark">What It Pays Back</div>
+      <h2>The biggest bill of your first year is the people who leave.</h2>
+      <p>A 2026 study of more than a thousand restaurant workers found that difficult managers tie with low pay as the number one reason people quit. Both sit at 44 percent. Seventy-three percent said their relationship with their manager affects whether they stay at all.</p>
+      <p>Then it spirals. People leave, so you're short. Being short-staffed was the number one thing employees said stresses them out, worse than hard customers or a brutal rush. So the people who stayed start looking too.</p>
+      <p>The Restaurant Owner Operating System is built to break that loop, and not with a speech about leadership. With the things that same study says people actually want. Training written down, so it doesn't change depending on who runs the shift. A schedule they get a week or two out instead of a couple of days. And a leader on the floor who knows what they own and notices when somebody does good work.</p>
+      <p>In your first year, every person on your team is a new hire. Here's what it costs when they don't stay.</p>
+      <div class="calc" data-price="749" data-low="1000" data-high="5800" data-rate="75">
+        <label for="teamRange">How many people will you have on your team?</label>
+        <span class="calc-sales" data-out="team">18</span>
+        <input id="teamRange" type="range" min="4" max="60" step="1" value="18" aria-label="Number of people on your team">
+        <div class="calc-grid two">
+          <div class="calc-cell"><div class="cnum" data-out="people">14</div><div class="clabel">You replace this many in a year, at the industry rate of 75%</div></div>
+          <div class="calc-cell"><div class="cnum" data-out="cost">$14,000 to $81,200</div><div class="clabel">What hiring and training them again costs you</div></div>
+        </div>
+        <div class="calc-whatif">
+          <label>Say the Restaurant Owner Operating System helps you keep just</label>
+          <div class="keepbtns" role="group" aria-label="How many people you keep">
+            <button type="button" class="kb active" data-keep="1">1 person</button>
+            <button type="button" class="kb" data-keep="2">2 people</button>
+            <button type="button" class="kb" data-keep="3">3 people</button>
+            <button type="button" class="kb" data-keep="5">5 people</button>
+          </div>
+          <div class="mathline">
+            <div class="mrow"><span>What you don't spend replacing them</span><span class="mval" data-out="saved">$1,000 to $5,800</span></div>
+            <div class="mrow"><span>What ROOS costs you, one time</span><span class="mval neg" data-out="minus">&minus;$749</span></div>
+            <div class="mrow total"><span>You're ahead, in year one</span><span class="mval" data-out="net">$251 to $5,051</span></div>
+          </div>
+          <p class="calc-note" data-out="note"></p>
+        </div>
+        <p class="calc-fine">The 2026 study surveyed 1,074 U.S. restaurant workers. What it costs to replace one employee varies a lot by source, from roughly $1,000 for a front-of-house role to $5,800 or more once you count the productivity lost while someone new learns the job, so I've shown the whole range instead of picking the number that flatters me. Turnover of 75% is the low end of the industry figure. This is arithmetic, not a promise about your restaurant.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Introduce cost -->
+  <section class="block">
+    <div class="wrap narrow" style="text-align:center;">
+      <div class="eyebrow" style="justify-content:center;">The Founding Price</div>
+      <h2>Over thirteen thousand in value. Founding members invest $749.</h2>
+      <p style="max-width:600px;margin:0 auto 30px;">A franchise charges you an initial fee to get trained, then takes a share of your sales for as long as you own the place. This is one payment, and everything you build stays yours.</p>
+      <div class="pricebox">
+        <div class="reg">Regular $1,497</div>
+        <div class="now">$749</div>
+        <div class="terms">one-time &middot; or 3 payments of $289</div>
+        <p class="anchor">Less than the cost of one slow month in lost sales.</p>
+        <a href="#enroll" class="btn btn-block">Become a Founding Member</a>
+        <p class="trustline">30-day money-back guarantee &middot; Secure checkout</p>
+      </div>
+      <p style="max-width:560px;margin:26px auto 0;color:var(--ink-70);">This is the founding price for a reason. You come in first, before the testimonials exist, and this is the lowest it will ever be. Once the proof is in, the price goes up.</p>
+    </div>
+  </section>
+
+  <!-- 9. Guarantee -->
+  <section class="block sec-soft">
+    <div class="wrap narrow">
+      <div class="eyebrow">Your Guarantee</div>
+      <h2>Try it for 30 days, on me.</h2>
+      <p>Go through Design Your Life, come to a couple of coaching calls, and put the work in. If it isn't what I promised, email me inside 30 days and I'll refund every dollar. No forms, no hoops. The risk is mine, not yours.</p>
+    </div>
+  </section>
+
+  <!-- 7. Founding honesty + testimonials -->
+  <section class="block">
+    <div class="wrap narrow">
+      <div class="eyebrow">The Honest Part</div>
+      <h2>Chick-fil-A paid me to train their new franchise owners. I'm about to do it for you.</h2>
+      <p>This is the first run, so I won't pretend there's a wall of student stories. There isn't. What there is instead: almost no one who has done what I've done.</p>
+      <p>Seven restaurants turned around, every one back to profit. A store that went from the lowest-performing in the country to nearly $11 million in sales. Chick-fil-A's highest honor, earned six times, a record number at a record pace. Chick-fil-A also hand-picked me to coach their new franchise owners, the same thing I'm about to do for you. Twenty-five years doing the exact work this teaches, in the hardest conditions there are.</p>
+      <img src="img-sos-truck.png" alt="Jason with the truck Chick-fil-A awards to Symbol of Success winners" style="width:100%;border-radius:18px;margin:10px 0 26px;box-shadow:0 12px 34px rgba(26,26,26,.12);">
+      <p>And there is nothing like the Restaurant Owner Operating System anywhere. Not a course, not a coach, not a book. A complete system, built from that record, for the person who hasn't opened yet.</p>
+      <p>You're not gambling on an unproven idea. You're getting in early, before the price catches up to what this is worth. With the guarantee above, the only way you lose is by not showing up.</p>
+      <div class="senja-slot">[ Senja testimonial widget goes here, fills in as founding members share their wins ]</div>
+    </div>
+  </section>
+
+  <!-- 12. FAQ -->
+  <section class="block sec-soft">
+    <div class="wrap narrow">
+      <div class="eyebrow">Questions</div>
+      <h2>The ones I get most.</h2>
+      <div class="faq">
+        <div class="q"><h3>I haven't signed a lease yet. Is it too early?</h3><p>No. This is built for exactly that. Design Your Life and The Blueprint are the pre-opening work, and the earlier you start, the more it saves you.</p></div>
+        <div class="q"><h3>I'm already open, and I'm drowning. Is this for me?</h3><p>Yes. Go straight to JumpStart. It's built to stabilize a restaurant that's running you and hand the day-to-day to a leader who can hold it.</p></div>
+        <div class="q"><h3>Does it work for my kind of restaurant?</h3><p>Yes. What you're learning is a restaurant system: the standards, the leadership, the way the place runs when you're not there. A coffee shop and a steakhouse serve different food, but they run on the same fundamentals. Those are what this teaches.</p></div>
+        <div class="q"><h3>I've never run a restaurant. What if I'm not cut out for this?</h3><p>Almost nobody opening their first place has run one before. The owners who make it aren't the naturals, they're the ones who had a system instead of having to invent one under pressure. That's the whole point of this. You don't have to already know how. You follow the steps, in order, that would otherwise cost you years and a lot of money to learn the hard way. Not being cut out for it is what happens to people with no plan, not people with the wrong resume.</p></div>
+        <div class="q"><h3>Why not just figure the systems out once I'm open?</h3><p>This is the one that costs people the most. Once you're open, your time is gone. You're on the floor covering shifts, and the only window you have to fix anything is between closing tonight and opening tomorrow, and the problems pile up faster than one night can hold. Every piece of this is far cheaper to build before the doors open than to retrofit while you're underwater. That's exactly why it's built to run before you open, not as a rescue after.</p></div>
+        <div class="q"><h3>How much time does it take each week?</h3><p>You set the pace. The courses are self-paced and the coaching is every other week, so you can move as fast or as steady as your life allows.</p></div>
+        <div class="q"><h3>What if I can't pay it all at once?</h3><p>You can split it into three payments of $289.</p></div>
+        <div class="q"><h3>What if I go through it and it isn't for me?</h3><p>Do the work, and if it isn't what I promised, email me inside 30 days for a full refund. The risk is mine.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Letter from Jason -->
+  <section class="block letter">
+    <div class="wrap">
+      <div class="lettergrid">
+        <img class="letterimg" src="img-azadeh-jason.jpg" alt="Jason Purvis and his wife Azadeh">
+        <div>
+          <div class="eyebrow">A Note Before You Decide</div>
+          <h2>I've shown you the hard part. This is the part that makes it worth it.</h2>
+          <p class="lead">Everything on this page so far has been the honest truth about how hard this business is. All of it is real. But it's only half the story, and I'd be doing you wrong to let you decide on half.</p>
+          <p>You're about to join one of the oldest and best clubs there is. People have been feeding their neighbors, building teams, and making a good living at this for generations. It is hard. But when it's done right, it is so much fun, and you get to have more influence on people's lives than almost any work I know. Because I own a restaurant in my town, I get invited to speak, to sit in rooms I'd never have been in otherwise, to be part of my community in a way I never expected. That comes with the seat.</p>
+          <p>This week I read the birthday card my team gave me. A few of the lines: Presley wrote, "Thank you for all you have taught me. I wouldn't be what I am without you." Jessica wrote, "Excited to continue to learn from you." Ryan wrote, "Thank you for all the care and effort you invest in all of us." Those are just notes on a card. You get to have that kind of impact on people. It's a gift, and it's a responsibility I don't take lightly.</p>
+          <p>Because when it's all said and done, we aren't really in the food business. We're in the people business. We just get to do it through food. A guest mentions it's their kid's birthday, so we take our coffee cake, add whipped cream and sprinkles, light one of the candles we keep behind the counter, and go sing. A fourteen-year-old celebrated his birthday with us this year because he's been coming since we opened five years ago, and the shop is a core memory of time with his family. When one of our vendors lost his dog, we made him something to say we were sorry. And there's Olivia, who still tears up telling people what this place has meant to her, because we believed in her, and she says no one ever had before.</p>
+          <p>Not everyone gets into this for the same reason. Some love the food and the craft. Some love the team, and watching people grow. Some love what it gives back to their community. Most love enough of it that they can't picture doing anything else. Whatever pulls you in, that's the part worth protecting.</p>
+          <p>Here's the honest part. So many people walk into this not knowing what they don't know, and it isn't their fault. A franchise makes sure its owners get this information before they ever open the doors. Nobody does that for independents, so most never get the chance to learn it. You just did. What you do with it from here is the one part that's on you.</p>
+          <p>I'm not telling you you're doomed without this. You're not. Plenty of people find their way eventually. It just takes longer, costs more, and hurts more than it has to. What's in here is 25 years of doing this, across different concepts and different corners of the country, learning what actually makes it work. Even if I charged $3,000 for it, it would still cost you less than learning it the hard way.</p>
+          <p>If you're in, I'm in. I'll see you on the first call. Welcome to the club.</p>
+          <div class="lettersig">
+            <div class="sig">Jason</div>
+            <div class="name">Jason Purvis</div>
+            <div class="title">Founder, Restaurant Freedom Academy</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13. Final CTA -->
+  <section class="block sec-dark" id="enroll">
+    <div class="wrap narrow" style="text-align:center;">
+      <div class="eyebrow on-dark" style="justify-content:center;">Founding Enrollment</div>
+      <h2>Open with everything a franchise owner is handed.</h2>
+      <p style="color:rgba(255,255,255,.82);max-width:620px;margin:0 auto 8px;">You bring the hard work. This is the rest of it: the training, the community of owners, and the system that trains your team. At the founding price, while it's still the founding price.</p>
+      <div class="pricebox">
+        <div class="reg">Regular $1,497</div>
+        <div class="now">$749</div>
+        <div class="terms">one-time &middot; or 3 payments of $289</div>
+        <p class="anchor">30-day guarantee. The risk is mine.</p>
+        <a href="https://rfa1.mysamcart.com/checkout/jumpstart-90-day-challenge-pay-in-full" class="btn btn-block">Become a Founding Member</a>
+        <p class="trustline">Secure checkout &middot; 30-day money-back guarantee</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14. Footer -->
+  <footer>
+    <div class="wrap" style="text-align:center;">
+      &copy; Restaurant Freedom Academy &nbsp;&middot;&nbsp;
+      <a>Privacy Policy</a> &nbsp;&middot;&nbsp;
+      <a>Terms</a> &nbsp;&middot;&nbsp;
+      <a>Earnings Disclaimer</a>
+    </div>
+  </footer>
+
+  <script>
+  (function(){
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var targets = document.querySelectorAll('.journey, [data-anim]');
+    if(reduce){ Array.prototype.forEach.call(targets, function(t){ t.classList.add('in'); }); return; }
+    // Only hide-then-reveal once we know JS is running.
+    document.documentElement.className += ' anim';
+
+    function countUp(el){
+      var end = parseInt(el.getAttribute('data-countup'), 10);
+      if(isNaN(end)) return;
+      var raw = el.textContent.trim();
+      var prefix = raw.charAt(0) === '$' ? '$' : '';
+      var dur = 1400, startTime = null;
+      function step(ts){
+        if(startTime === null) startTime = ts;
+        var p = Math.min((ts - startTime) / dur, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = prefix + Math.round(end * eased).toLocaleString('en-US');
+        if(p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    function activate(el){
+      if(el.classList.contains('in')) return;
+      el.classList.add('in');
+      var c = el.querySelector('[data-countup]');
+      if(c){
+        if(el._countTimer) clearTimeout(el._countTimer);
+        el._countTimer = setTimeout(function(){ countUp(c); }, 700);
+      }
+    }
+
+    function reset(el){
+      if(!el.classList.contains('in')) return;
+      el.classList.remove('in');
+      if(el._countTimer) clearTimeout(el._countTimer);
+      var c = el.querySelector('[data-countup]');
+      if(c) c.textContent = '$0';
+    }
+
+    function check(){
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      Array.prototype.forEach.call(targets, function(t){
+        var r = t.getBoundingClientRect();
+        if(r.top < vh * 0.88 && r.bottom > 0) activate(t);
+        else if(r.bottom < -40 || r.top > vh + 40) reset(t);
+      });
+    }
+
+    window.addEventListener('scroll', check, { passive: true });
+    window.addEventListener('resize', check);
+    window.addEventListener('load', check);
+    document.addEventListener('visibilitychange', function(){
+      if(!document.hidden){
+        Array.prototype.forEach.call(targets, reset);
+        check();
+      }
+    });
+    check();
+    // Belt and braces: a steady poll means nothing can get stuck hidden.
+    setInterval(check, 400);
+
+    // Payback calculator
+    var calc = document.querySelector('.calc');
+    if(calc){
+      var teamRange = calc.querySelector('#teamRange');
+      var price = parseInt(calc.getAttribute('data-price'), 10) || 749;
+      var rate = parseInt(calc.getAttribute('data-rate'), 10) || 75;
+      var money = function(n){ return '$' + Math.round(n).toLocaleString('en-US'); };
+      var out = function(k){ return calc.querySelector('[data-out="' + k + '"]'); };
+      var low = parseInt(calc.getAttribute('data-low'), 10) || 1000;
+      var high = parseInt(calc.getAttribute('data-high'), 10) || 5800;
+      var buttons = calc.querySelectorAll('.kb');
+      var keep = 1;
+      var range = function(a, b){ return money(a) + ' to ' + money(b); };
+      function render(){
+        var team = parseInt(teamRange.value, 10);
+        var people = Math.round(team * rate / 100);
+        var k = Math.min(keep, people);
+        out('team').textContent = team;
+        out('people').textContent = people;
+        out('cost').textContent = range(people * low, people * high);
+        out('saved').textContent = range(k * low, k * high);
+        out('minus').textContent = '−' + money(price);
+        out('net').textContent = range(k * low - price, k * high - price);
+        out('note').textContent = 'Keep ' + (k === 1 ? 'one person' : k + ' people') +
+          ' you would have lost, and ROOS has already paid for itself. Even at the lowest replacement estimate anyone publishes, you are ' +
+          money(k * low - price) + ' ahead in year one. At the high end it is ' + money(k * high - price) +
+          '. And you own the system in year two, and in every restaurant you open after this one.';
+      }
+      Array.prototype.forEach.call(buttons, function(b){
+        b.addEventListener('click', function(){
+          keep = parseInt(b.getAttribute('data-keep'), 10);
+          Array.prototype.forEach.call(buttons, function(x){ x.classList.remove('active'); });
+          b.classList.add('active');
+          render();
+        });
+      });
+      teamRange.addEventListener('input', render);
+      render();
+    }
+  })();
+  </script>
+
+</body>
+</html>
